@@ -1,0 +1,398 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Services — Jennifer Sparkle Scotland{% endblock %}
+{% block meta_description %}Professional cleaning services in Glasgow: deep cleaning, end of tenancy, move in/out, regular cleaning, after builders, and domestic cleaning.{% endblock %}
+{% block extra_css %}
+<style>
+    .services-hero {
+        padding: 160px 0 80px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .services-hero::before {
+        content: '';
+        position: absolute;
+        top: -30%;
+        right: 10%;
+        width: 50%;
+        height: 60%;
+        background: radial-gradient(ellipse, rgba(240,98,146,0.08), transparent 70%);
+        pointer-events: none;
+    }
+    /* Service cards */
+    .service-full-card {
+        padding: 0;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+    }
+    .service-full-card .card-inner {
+        padding: 40px;
+    }
+    .service-full-card .card-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 16px;
+    }
+    .service-full-card .card-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        background: rgba(240,98,146,0.1);
+        border: 1px solid var(--border-glow);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+        transition: all 0.4s ease;
+    }
+    .service-full-card:hover .card-icon {
+        background: rgba(240,98,146,0.2);
+        box-shadow: 0 0 20px var(--pink-glow-soft);
+        transform: scale(1.1);
+    }
+    .service-full-card h3 {
+        font-size: 1.3rem;
+    }
+    .service-full-card .tagline {
+        color: var(--pink-soft);
+        font-size: 0.85rem;
+        font-style: italic;
+    }
+    .service-full-card .description {
+        color: var(--fg-muted);
+        font-size: 0.95rem;
+        line-height: 1.7;
+        margin-bottom: 20px;
+    }
+    .service-full-card .benefits {
+        list-style: none;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    .service-full-card .benefits li {
+        color: var(--fg-muted);
+        font-size: 0.85rem;
+        padding-left: 20px;
+        position: relative;
+    }
+    .service-full-card .benefits li::before {
+        content: '✦';
+        position: absolute;
+        left: 0;
+        color: var(--pink);
+        font-size: 0.7rem;
+    }
+    .service-full-card .card-footer {
+        padding: 16px 40px;
+        border-top: 1px solid var(--border-glass);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .service-full-card .card-footer span {
+        color: var(--fg-muted);
+        font-size: 0.85rem;
+    }
+    .service-full-card .card-footer .book-link {
+        color: var(--pink);
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+    }
+    .service-full-card .card-footer .book-link:hover {
+        text-shadow: 0 0 10px var(--pink-glow);
+    }
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+    /* Process */
+    .process-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+    }
+    .process-step {
+        text-align: center;
+        padding: 30px 20px;
+        position: relative;
+    }
+    .process-step .step-num {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--pink), #e91e78);
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16px;
+    }
+    .process-step h3 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+    .process-step p {
+        color: var(--fg-muted);
+        font-size: 0.85rem;
+    }
+    /* Promise banner */
+    .promise-banner {
+        background: linear-gradient(135deg, rgba(240,98,146,0.15), rgba(233,30,120,0.05));
+        border: 1px solid var(--border-glow);
+        border-radius: var(--radius);
+        padding: 50px 40px;
+        text-align: center;
+    }
+    .promise-banner h2 {
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+    }
+    .promise-banner p {
+        color: var(--fg-muted);
+        max-width: 600px;
+        margin: 0 auto 24px;
+    }
+    @media (max-width: 768px) {
+        .services-grid { grid-template-columns: 1fr; }
+        .process-grid { grid-template-columns: 1fr 1fr; }
+        .service-full-card .benefits { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+        .process-grid { grid-template-columns: 1fr; }
+    }
+</style>
+{% endblock %}
+{% block content %}
+<!-- HERO -->
+<section class="services-hero">
+    <div class="container fade-in">
+        <div class="section-label">✦ What We Do</div>
+        <h1 class="section-title" style="font-size: clamp(2.5rem, 6vw, 3.5rem);">
+            Premium Cleaning <span class="text-gradient">Services</span>
+        </h1>
+        <p class="section-subtitle" style="margin: 0 auto; max-width: 600px;">
+            We don't just clean surfaces — we reset your environment. Every service delivered with precision and care.
+        </p>
+    </div>
+</section>
+<!-- SERVICES -->
+<section class="section">
+    <div class="container">
+        <div class="services-grid">
+            <!-- Deep Cleaning -->
+            <div class="glow-card service-full-card fade-in">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="card-icon">🧹</div>
+                        <div>
+                            <h3>Deep Cleaning</h3>
+                            <span class="tagline">The ultimate reset for your home</span>
+                        </div>
+                    </div>
+                    <p class="description">
+                        Our deep cleaning service goes beyond the surface. We reach every corner, crevice, and hidden space — from behind appliances to inside cupboards. This is a full environmental reset designed to eliminate built-up grime, bacteria, and allergens.
+                    </p>
+                    <ul class="benefits">
+                        <li>All rooms cleaned thoroughly</li>
+                        <li>Behind & under furniture</li>
+                        <li>Kitchen appliances inside & out</li>
+                        <li>Bathroom descaling & sanitising</li>
+                        <li>Skirting boards & light fittings</li>
+                        <li>Window sills & frames</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <span>From £120</span>
+                    <a href="{% url 'contact' %}" class="book-link">Book Now →</a>
+                </div>
+            </div>
+            <!-- End of Tenancy -->
+            <div class="glow-card service-full-card fade-in">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="card-icon">🏠</div>
+                        <div>
+                            <h3>End of Tenancy</h3>
+                            <span class="tagline">Get your full deposit back</span>
+                        </div>
+                    </div>
+                    <p class="description">
+                        Moving out? Our end of tenancy clean is designed to meet landlord and letting agent standards. We ensure every inch of your property is spotless — giving you the best chance of a full deposit return.
+                    </p>
+                    <ul class="benefits">
+                        <li>Meets letting agent standards</li>
+                        <li>Full kitchen deep clean</li>
+                        <li>Oven & hob cleaning</li>
+                        <li>Bathroom deep sanitisation</li>
+                        <li>Carpet hoovering & mopping</li>
+                        <li>Window cleaning (interior)</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <span>From £150</span>
+                    <a href="{% url 'contact' %}" class="book-link">Book Now →</a>
+                </div>
+            </div>
+            <!-- Move In / Move Out -->
+            <div class="glow-card service-full-card fade-in">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="card-icon">📦</div>
+                        <div>
+                            <h3>Move In / Move Out</h3>
+                            <span class="tagline">Start fresh in a spotless space</span>
+                        </div>
+                    </div>
+                    <p class="description">
+                        Whether you're moving in or moving out, we make sure your new home is perfectly clean and ready. A fresh start deserves a fresh space — and we deliver exactly that.
+                    </p>
+                    <ul class="benefits">
+                        <li>Complete property clean</li>
+                        <li>Cupboard & drawer wipe-down</li>
+                        <li>Appliance cleaning</li>
+                        <li>Floor washing & polishing</li>
+                        <li>Light switches & door handles</li>
+                        <li>Dust-free surfaces guaranteed</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <span>From £130</span>
+                    <a href="{% url 'contact' %}" class="book-link">Book Now →</a>
+                </div>
+            </div>
+            <!-- Regular Cleaning -->
+            <div class="glow-card service-full-card fade-in">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="card-icon">✨</div>
+                        <div>
+                            <h3>Regular Cleaning</h3>
+                            <span class="tagline">Consistency you can count on</span>
+                        </div>
+                    </div>
+                    <p class="description">
+                        Our regular cleaning service keeps your home in perfect condition — week after week. Choose a schedule that works for you and enjoy coming home to a consistently beautiful space.
+                    </p>
+                    <ul class="benefits">
+                        <li>Weekly or fortnightly options</li>
+                        <li>All rooms maintained</li>
+                        <li>Kitchen & bathroom focus</li>
+                        <li>Hoovering & mopping</li>
+                        <li>Dusting all surfaces</li>
+                        <li>Bed making & tidying</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <span>From £50/visit</span>
+                    <a href="{% url 'contact' %}" class="book-link">Book Now →</a>
+                </div>
+            </div>
+            <!-- After Builders -->
+            <div class="glow-card service-full-card fade-in">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="card-icon">🔨</div>
+                        <div>
+                            <h3>After Builders Cleaning</h3>
+                            <span class="tagline">From construction site to showroom</span>
+                        </div>
+                    </div>
+                    <p class="description">
+                        Post-construction mess is no match for us. Dust, debris, paint splashes, plaster residue — we handle it all. Your renovated space will look as good as the architect imagined.
+                    </p>
+                    <ul class="benefits">
+                        <li>Heavy dust removal</li>
+                        <li>Paint & plaster cleanup</li>
+                        <li>Window & frame cleaning</li>
+                        <li>Floor scrubbing & polishing</li>
+                        <li>Fixture & fitting wipe-down</li>
+                        <li>Full debris clearance</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <span>From £180</span>
+                    <a href="{% url 'contact' %}" class="book-link">Book Now →</a>
+                </div>
+            </div>
+            <!-- Domestic Cleaning -->
+            <div class="glow-card service-full-card fade-in">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="card-icon">🏡</div>
+                        <div>
+                            <h3>Domestic Cleaning</h3>
+                            <span class="tagline">Your home, our priority</span>
+                        </div>
+                    </div>
+                    <p class="description">
+                        Reliable, thorough, and tailored to your needs. Our domestic cleaning covers everything from daily upkeep to a thorough refresh — keeping your household running smoothly.
+                    </p>
+                    <ul class="benefits">
+                        <li>Customisable cleaning plan</li>
+                        <li>All living areas</li>
+                        <li>Kitchen & bathroom deep clean</li>
+                        <li>Laundry & ironing (optional)</li>
+                        <li>Pet-friendly products</li>
+                        <li>Same cleaner every visit</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <span>From £45/visit</span>
+                    <a href="{% url 'contact' %}" class="book-link">Book Now →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- PROCESS -->
+<section class="section" style="background: rgba(18,18,28,0.4);">
+    <div class="container">
+        <div class="section-header fade-in">
+            <div class="section-label">✦ How It Works</div>
+            <h2 class="section-title">Simple. Seamless. <span class="text-gradient">Sparkling.</span></h2>
+        </div>
+        <div class="process-grid">
+            <div class="glow-card process-step fade-in">
+                <div class="step-num">1</div>
+                <h3>Get in Touch</h3>
+                <p>Contact us by phone, email, or WhatsApp to discuss your needs.</p>
+            </div>
+            <div class="glow-card process-step fade-in">
+                <div class="step-num">2</div>
+                <h3>Get a Quote</h3>
+                <p>We'll provide a transparent, no-obligation quote tailored to your property.</p>
+            </div>
+            <div class="glow-card process-step fade-in">
+                <div class="step-num">3</div>
+                <h3>We Clean</h3>
+                <p>Our professional team arrives on time and transforms your space.</p>
+            </div>
+            <div class="glow-card process-step fade-in">
+                <div class="step-num">4</div>
+                <h3>You Enjoy</h3>
+                <p>Walk into your sparkling, fresh home and feel the difference.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- PROMISE -->
+<section class="section">
+    <div class="container fade-in">
+        <div class="promise-banner">
+            <div class="section-label">✦ Our Promise</div>
+            <h2>100% Satisfaction <span class="text-gradient">Guaranteed</span></h2>
+            <p>If you're not completely happy with our work, we'll come back and make it right — free of charge. That's the Jennifer Sparkle promise.</p>
+            <a href="{% url 'contact' %}" class="btn btn-primary">Book Your Clean Today</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

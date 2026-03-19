@@ -1,0 +1,527 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Jennifer Sparkle Scotland — Premium Cleaning Glasgow{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Premium professional cleaning services in Glasgow. Deep cleaning, end of tenancy, domestic cleaning and more. Your space, reimagined.{% endblock %}">
+    <link rel="icon" href="{% static 'images/logo.jpeg' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========== RESET & BASE ========== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg: #0a0a0f;
+            --bg-card: rgba(18, 18, 28, 0.6);
+            --fg: #f0f0f5;
+            --fg-muted: #8888a0;
+            --pink: #f06292;
+            --pink-soft: #f8a4c0;
+            --pink-glow: rgba(240, 98, 146, 0.35);
+            --pink-glow-soft: rgba(240, 98, 146, 0.12);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(240, 98, 146, 0.25);
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            line-height: 1.15;
+        }
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; height: auto; display: block; }
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--pink-glow); border-radius: 3px; }
+        /* ========== UTILITIES ========== */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .glass {
+            background: var(--bg-card);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border-glass);
+        }
+        .glow-text {
+            text-shadow: 0 0 30px var(--pink-glow), 0 0 60px rgba(240, 98, 146, 0.15);
+        }
+        .glow-box {
+            box-shadow: 0 0 30px var(--pink-glow-soft), 0 0 60px rgba(240, 98, 146, 0.04);
+        }
+        .text-pink { color: var(--pink); }
+        .text-pink-soft { color: var(--pink-soft); }
+        .text-muted { color: var(--fg-muted); }
+        .text-gradient {
+            background: linear-gradient(135deg, var(--pink-soft), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section { padding: 100px 0; }
+        .section-sm { padding: 60px 0; }
+        /* ========== BUTTONS ========== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--pink), #e91e78);
+            color: #fff;
+            box-shadow: 0 0 25px var(--pink-glow);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px var(--pink-glow), 0 8px 30px rgba(0,0,0,0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--pink-soft);
+            border: 1px solid var(--border-glow);
+        }
+        .btn-outline:hover {
+            background: rgba(240, 98, 146, 0.08);
+            border-color: var(--pink);
+            transform: translateY(-2px);
+        }
+        .btn-glass {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            color: var(--fg);
+            border: 1px solid var(--border-glass);
+        }
+        .btn-glass:hover {
+            border-color: var(--border-glow);
+            box-shadow: 0 0 20px var(--pink-glow-soft);
+            transform: translateY(-2px);
+        }
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-glass);
+            padding: 10px 0;
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar-logo {
+            height: 50px;
+            width: auto;
+            border-radius: 8px;
+        }
+        .navbar-links {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+        }
+        .navbar-links a {
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--fg-muted);
+            transition: all 0.3s ease;
+        }
+        .navbar-links a:hover,
+        .navbar-links a.active {
+            color: var(--pink-soft);
+            background: rgba(240, 98, 146, 0.08);
+        }
+        .navbar-cta {
+            display: none;
+        }
+        /* Mobile hamburger */
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .navbar-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--fg);
+            margin: 6px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        .navbar-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+        .navbar-toggle.open span:nth-child(2) { opacity: 0; }
+        .navbar-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+        @media (max-width: 768px) {
+            .navbar-toggle { display: block; }
+            .navbar-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(10, 10, 15, 0.95);
+                backdrop-filter: blur(20px);
+                padding: 20px 24px;
+                border-bottom: 1px solid var(--border-glass);
+            }
+            .navbar-links.open { display: flex; }
+            .navbar-links a {
+                padding: 12px 18px;
+                font-size: 1rem;
+            }
+            .navbar-cta { display: none !important; }
+        }
+        @media (min-width: 769px) {
+            .navbar-cta { display: inline-flex; }
+        }
+        /* ========== FOOTER ========== */
+        .footer {
+            border-top: 1px solid var(--border-glass);
+            padding: 60px 0 30px;
+            background: rgba(10, 10, 15, 0.8);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand p {
+            color: var(--fg-muted);
+            margin-top: 16px;
+            font-size: 0.9rem;
+            max-width: 300px;
+        }
+        .footer-col h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--pink-soft);
+            margin-bottom: 16px;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 10px; }
+        .footer-col a {
+            color: var(--fg-muted);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .footer-col a:hover { color: var(--pink-soft); }
+        .footer-bottom {
+            border-top: 1px solid var(--border-glass);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .footer-bottom p {
+            color: var(--fg-muted);
+            font-size: 0.8rem;
+        }
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+        }
+        .footer-socials a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-glass);
+            color: var(--fg-muted);
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .footer-socials a:hover {
+            border-color: var(--pink);
+            color: var(--pink);
+            box-shadow: 0 0 15px var(--pink-glow-soft);
+        }
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+        }
+        @media (max-width: 480px) {
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        /* ========== ANIMATIONS ========== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px var(--pink-glow); }
+            50% { box-shadow: 0 0 40px var(--pink-glow), 0 0 60px rgba(240,98,146,0.15); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        /* ========== CARDS ========== */
+        .glow-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius);
+            padding: 32px;
+            transition: all 0.4s ease;
+        }
+        .glow-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-glow);
+            box-shadow: 0 20px 40px rgba(240,98,146,0.12), 0 0 60px rgba(240,98,146,0.05);
+        }
+        /* ========== SECTION TITLES ========== */
+        .section-label {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--pink);
+            border: 1px solid var(--border-glow);
+            background: rgba(240,98,146,0.06);
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .section-subtitle {
+            color: var(--fg-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-header .section-subtitle {
+            margin: 0 auto;
+        }
+        /* ========== FORM STYLES ========== */
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--fg-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(18, 18, 28, 0.8);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-sm);
+            color: var(--fg);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        .form-control:focus {
+            border-color: rgba(240, 98, 146, 0.5);
+            box-shadow: 0 0 20px var(--pink-glow-soft), 0 0 40px rgba(240,98,146,0.06);
+        }
+        .form-control::placeholder {
+            color: rgba(136, 136, 160, 0.5);
+        }
+        textarea.form-control { resize: vertical; min-height: 120px; }
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238888a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+        }
+        /* ========== RESPONSIVE GRID ========== */
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .section { padding: 60px 0; }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="{% url 'home' %}">
+                <img src="https://i.ibb.co/20T7Szpm/logo.jpg" alt="Jennifer Sparkle Scotland" class="navbar-logo">
+            </a>
+            <button class="navbar-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="navbar-links" id="navLinks">
+                <li><a href="{% url 'home' %}" class="{% block nav_home %}{% endblock %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'services' %}">Services</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+            <a href="{% url 'contact' %}" class="btn btn-primary btn-sm navbar-cta">Book a Clean</a>
+        </div>
+    </nav>
+    <!-- MAIN CONTENT -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="https://i.ibb.co/20T7Szpm/logo.jpg" alt="Jennifer Sparkle Scotland" style="height:50px; border-radius:8px;">
+                    <p>Premium cleaning services in Glasgow. We don't just clean — we transform your space into something extraordinary.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'services' %}">Services</a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="{% url 'services' %}">Deep Cleaning</a></li>
+                        <li><a href="{% url 'services' %}">End of Tenancy</a></li>
+                        <li><a href="{% url 'services' %}">Regular Cleaning</a></li>
+                        <li><a href="{% url 'services' %}">After Builders</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+447000000000">Call Us</a></li>
+                        <li><a href="mailto:info@jennifersparklescotland.com">Email Us</a></li>
+                        <li><a href="https://wa.me/447000000000" target="_blank">WhatsApp</a></li>
+                    </ul>
+                </div>
+            </div>
+<div class="footer-bottom">
+    <p>&copy; 2026 Jennifer Sparkle Scotland. All rights reserved.</p>
+
+    <div class="footer-socials">
+
+        <a href="https://www.youtube.com/@jennifersparklescotland" target="_blank" aria-label="YouTube">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+        </a>
+
+        <a href="https://www.instagram.com/jennifer_sparkle01" target="_blank" aria-label="Instagram">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram">
+        </a>
+
+        <a href="https://www.tiktok.com/@sparklescotlandcleanser1" target="_blank" aria-label="TikTok">
+            <img src="https://cdn-icons-png.flaticon.com/512/3046/3046126.png" alt="TikTok">
+        </a>
+
+        <a href="https://wa.me/447342595758" target="_blank" aria-label="WhatsApp">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" alt="WhatsApp">
+        </a>
+
+    </div>
+</div>
+        </div>
+    </footer>
+    <!-- SCRIPTS -->
+    <script>
+        // Navbar scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+        // Mobile menu toggle
+        document.getElementById('navToggle').addEventListener('click', function() {
+            this.classList.toggle('open');
+            document.getElementById('navLinks').classList.toggle('open');
+        });
+        // Close mobile menu on link click
+        document.querySelectorAll('.navbar-links a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                document.getElementById('navToggle').classList.remove('open');
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
+        // Scroll fade-in animations
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.fade-in').forEach(function(el) {
+            observer.observe(el);
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

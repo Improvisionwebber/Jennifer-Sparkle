@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}About — Jennifer Sparkle Scotland{% endblock %}
+{% block meta_description %}Learn about Jennifer Sparkle Scotland — Glasgow's premium cleaning service. Professional, reliable, and dedicated to transforming your space.{% endblock %}
+{% block extra_css %}
+<style>
+    .about-hero {
+        padding: 160px 0 80px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .about-hero::before {
+        content: '';
+        position: absolute;
+        top: -30%;
+        left: 20%;
+        width: 60%;
+        height: 60%;
+        background: radial-gradient(ellipse, rgba(240,98,146,0.08), transparent 70%);
+        pointer-events: none;
+    }
+    .story-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+    }
+    .story-text h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+    .story-text p {
+        color: var(--fg-muted);
+        margin-bottom: 16px;
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+    .story-image {
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid var(--border-glass);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .story-image img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+    }
+    .values-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+    .value-card {
+        text-align: center;
+        padding: 40px 24px;
+    }
+    .value-card .icon {
+        font-size: 2rem;
+        margin-bottom: 16px;
+    }
+    .value-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+    .value-card p {
+        color: var(--fg-muted);
+        font-size: 0.9rem;
+    }
+    .timeline {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .timeline-item {
+        display: flex;
+        gap: 24px;
+        padding-bottom: 40px;
+        position: relative;
+    }
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: 19px;
+        top: 40px;
+        bottom: 0;
+        width: 2px;
+        background: var(--border-glass);
+    }
+    .timeline-item:last-child::before { display: none; }
+    .timeline-dot {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(240,98,146,0.15);
+        border: 2px solid var(--pink);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+    }
+    .timeline-content h3 {
+        font-size: 1rem;
+        margin-bottom: 6px;
+    }
+    .timeline-content p {
+        color: var(--fg-muted);
+        font-size: 0.9rem;
+    }
+    @media (max-width: 768px) {
+        .story-section { grid-template-columns: 1fr; gap: 30px; }
+        .values-grid { grid-template-columns: 1fr; }
+    }
+</style>
+{% endblock %}
+{% block content %}
+<!-- HERO -->
+<section class="about-hero">
+    <div class="container fade-in">
+        <div class="section-label">✦ Our Story</div>
+        <h1 class="section-title" style="font-size: clamp(2.5rem, 6vw, 3.5rem);">
+            More Than Just <span class="text-gradient">Cleaning</span>
+        </h1>
+        <p class="section-subtitle" style="margin: 0 auto; max-width: 600px;">
+            We're on a mission to transform how Glasgow thinks about cleaning. Professional, reliable, and obsessed with perfection.
+        </p>
+    </div>
+</section>
+<!-- STORY -->
+<section class="section">
+    <div class="container">
+        <div class="story-section fade-in">
+            <div class="story-text">
+                <div class="section-label">✦ Who We Are</div>
+                <h2>Jennifer Sparkle <span class="text-gradient">Scotland</span></h2>
+                <p>
+                    Founded with a passion for transforming spaces, Jennifer Sparkle Scotland is Glasgow's premium cleaning service. We believe that a clean home isn't just about hygiene — it's about creating an environment where you can breathe, relax, and truly live.
+                </p>
+                <p>
+                    Every member of our team is trained to the highest standards, fully insured, and dedicated to delivering results that exceed expectations. From deep cleans to regular maintenance, we treat every home like it's our own.
+                </p>
+                <p>
+                    We use professional-grade, eco-friendly products that are safe for your family and pets, while delivering the powerful results your home deserves.
+                </p>
+                <a href="{% url 'contact' %}" class="btn btn-primary" style="margin-top: 16px;">Get in Touch</a>
+            </div>
+            <div class="story-image glass">
+                <img src="{% static 'after2.jpeg' %}" alt="Sparkling clean result">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- VALUES -->
+<section class="section" style="background: rgba(18,18,28,0.4);">
+    <div class="container">
+        <div class="section-header fade-in">
+            <div class="section-label">✦ Our Values</div>
+            <h2 class="section-title">What Drives <span class="text-gradient">Us</span></h2>
+        </div>
+        <div class="values-grid">
+            <div class="glow-card value-card fade-in">
+                <div class="icon">💎</div>
+                <h3>Excellence</h3>
+                <p>We don't settle for good enough. Every clean is delivered to the highest professional standard.</p>
+            </div>
+            <div class="glow-card value-card fade-in">
+                <div class="icon">🤝</div>
+                <h3>Trust</h3>
+                <p>Fully insured, vetted, and reliable. We earn your trust with every visit.</p>
+            </div>
+            <div class="glow-card value-card fade-in">
+                <div class="icon">🌿</div>
+                <h3>Sustainability</h3>
+                <p>Eco-friendly products and methods that protect your home and the environment.</p>
+            </div>
+            <div class="glow-card value-card fade-in">
+                <div class="icon">⏰</div>
+                <h3>Reliability</h3>
+                <p>On time, every time. Consistent quality you can depend on week after week.</p>
+            </div>
+            <div class="glow-card value-card fade-in">
+                <div class="icon">❤️</div>
+                <h3>Care</h3>
+                <p>We treat your home with the same love and attention we'd give our own.</p>
+            </div>
+            <div class="glow-card value-card fade-in">
+                <div class="icon">🏆</div>
+                <h3>Results</h3>
+                <p>We don't just clean surfaces — we reset your entire environment.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- JOURNEY -->
+<section class="section">
+    <div class="container">
+        <div class="section-header fade-in">
+            <div class="section-label">✦ Our Journey</div>
+            <h2 class="section-title">How We <span class="text-gradient">Got Here</span></h2>
+        </div>
+        <div class="timeline fade-in">
+            <div class="timeline-item">
+                <div class="timeline-dot">🌟</div>
+                <div class="timeline-content">
+                    <h3>The Beginning</h3>
+                    <p>Started with a simple vision — to bring premium cleaning services to every home in Glasgow.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">📈</div>
+                <div class="timeline-content">
+                    <h3>Growing Trust</h3>
+                    <p>Word spread fast. Our clients became our biggest advocates, referring friends and family.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">🏡</div>
+                <div class="timeline-content">
+                    <h3>Expanding Services</h3>
+                    <p>From regular cleaning to deep cleans, end of tenancy, and after builders — we grew to meet demand.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">✨</div>
+                <div class="timeline-content">
+                    <h3>Today</h3>
+                    <p>500+ homes cleaned, 100% satisfaction rate, and still growing. Glasgow's most trusted cleaning service.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- CTA -->
+<section class="section-sm">
+    <div class="container">
+        <div class="glass glow-box fade-in" style="text-align:center; padding:60px 40px; border-radius: var(--radius);">
+            <h2 class="section-title">Ready to Experience the <span class="text-gradient">Sparkle</span>?</h2>
+            <p style="color: var(--fg-muted); margin-bottom: 24px;">Book your first clean today and see the difference for yourself.</p>
+            <a href="{% url 'contact' %}" class="btn btn-primary">Book a Clean</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
